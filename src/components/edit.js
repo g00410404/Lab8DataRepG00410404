@@ -33,51 +33,65 @@ useEffect(() => {
         })
 }, []);
 
+// Handling form submission
 const handleSubmit = (event) => {
     event.preventDefault();
+    // Creating a new book object with updated information
     const newBook = {
-        id: id,
-        title: title,
-        cover: cover,
-        author: author
+      id: id,
+      title: title,
+      cover: cover,
+      author: author
     };
+    // Making a PUT request to update the book
     axios.put('http://localhost:4000/api/book/' + id, newBook)
-        .then((res) => {
-            console.log(res.data);
-            navigate('/read');
-        })
-        .catch((error)=>{console.log(error)});
-}
-return (
+      .then((res) => {
+        console.log(res.data);
+        // Navigating to the 'read' route after successful edit
+        navigate('/read');
+      })
+      .catch((error) => { console.log(error) });
+  }
+
+  return (
     <div>
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label>Add Book Title: </label>
-                <input type="text"
-                    className="form-control"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-            </div>
-            <div className="form-group">
-                <label>Add Release Year: </label>
-                <input type="text"
-                    className="form-control"
-                    value={cover}
-                    onChange={(e) => setCover(e.target.value)}
-                />
-            </div>
-            <div className="form-group"><label>Add Poster Url: </label>
-                <input type="text"
-                    className="form-control"
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                />
-            </div>
-            <div className="form-group">
-                <input type="submit" value="Edit Book" className="btn btn-primary" />
-            </div>
-        </form>
+      {/* Form for editing book details */}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Add Book Title: </label>
+          {/* Input for updating the book title */}
+          <input
+            type="text"
+            className="form-control"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Add Release Year: </label>
+          {/* Input for updating the book cover (release year) */}
+          <input
+            type="text"
+            className="form-control"
+            value={cover}
+            onChange={(e) => setCover(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Add Poster Url: </label>
+          {/* Input for updating the book author */}
+          <input
+            type="text"
+            className="form-control"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          {/* Submit button for editing the book */}
+          <input type="submit" value="Edit Book" className="btn btn-primary" />
+        </div>
+      </form>
     </div>
-);
+  );
 }
